@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>Title</title>
+     <link rel='stylesheet' type='text/css' href='/static/css/bootstrap.min.css'>
+</head>
+<body>
+<div>
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+   <a>Поиск </a>
+   <a href="/get_id"> Получить статью по ID </a>
+   <a href="/add_id"> Добавить </a>
+   <a href="/del_id"> Удалить </a>
+   <a href="/"> Админ.панель </a>
+
+</nav>
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+    {{form.hidden_tag()}}
+    {{ form.csrf_token }}
+    {{ form.name }}
+    <h5>Введите запрос:</h5>
+    <h5> {{form.elastic_search(size=132)}}</h5>
+
+{{form.submit()}}
+
+
+ </form>
+<p></p>
+ <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Индекс</th>
+      <th scope="col">ID</th>
+      <th scope="col">результат запроса</th>
+      </tr>
+  </thead>
+{% if hits in search_result %}
+
+{% endif %}
+{% for l in search_result %}
+
+  <tbody>
+    <tr>
+     <td>{{l._index}}</td>
+     <td>{{l._id}}</td>
+     <td>{{l._source.text}}</td>
+
+
+    </tr>
+  </tbody>
+{% endfor %}
+
+</table>
+</body>
+</html>

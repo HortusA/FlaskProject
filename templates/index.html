@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{Title}}</title>
+
+   <link rel='stylesheet' type='text/css' href='/static/css/bootstrap.min.css'>
+</head>
+<body>
+    <h1>Отчет НРИС</h1>
+    <form method='POST' enctype='multipart/form-data'>
+        {{form.hidden_tag()}}
+        <div>{{form.start()}} {{form.end()}}</div>
+        {{form.file()}}
+        {% if form.start.errors %}
+                {% for error in form.start.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+        {% endif %}
+        {{form.submit()}}
+    </form>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Адрес почты</th>
+      <th scope="col">Сумма</th>
+    </tr>
+  </thead>
+{% for mail in data %}
+  <tbody>
+    <tr>
+     <td>{{ mail[0]}}</td>
+     <td>{{ mail[1]}}</td>
+    </tr>
+  </tbody>
+ {% endfor %}
+</table>
+
+
+</body>
+</html>
