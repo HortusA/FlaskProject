@@ -31,7 +31,7 @@ class ElasticSearchIDForm(FlaskForm):
     submit = SubmitField("ok")
 
 
-@bp_elastic.route('/elastic', methods=['GET', "POST"]) #Основной поиск  текста Задание1
+@bp_elastic.route('/elastic', methods=['GET', "POST"])
 def elastic():
     form = ElasticSearchForm()
     if form.validate_on_submit():

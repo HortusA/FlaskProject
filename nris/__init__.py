@@ -17,7 +17,7 @@ bp_nris = Blueprint('nris', __name__, template_folder='templates')
 UPLOAD_FOLDER = 'static/files'
 
 
-class UploadFileForm(FlaskForm):  #Класс формы для загрузки файла задачи Задача1
+class UploadFileForm(FlaskForm):
     file = FileField("file")
     start = DateField("start", format='%Y-%m-%d', validators=(validators.Optional(),))
     end = DateField("end", format='%Y-%m-%d', validators=(validators.Optional(),))

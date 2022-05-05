@@ -9,19 +9,33 @@
 
 <div>
    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <a href="/elastic/elastic">Поиск</a>
-   <a href="/elastic/get_id"> Получить статью по ID </a>
-   <a href="/elastic/add_id"> Добавить </a>
-   <a href="/elastic/del_id"> Удалить </a>
    <a href="/"> Админ.панель </a>
+   </nav>
+
 </div>
 
 <form method="POST" enctype="multipart/form-data">
       {{form.hidden_tag()}}
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Резултат операции:</th>
 
-      <h5>Введите ID статьи для удаления: {{form.elastic_search(size=10)}}</h5>
+     </tr>
+  </thead>
 
-    <h5>Вы удалили статью:{{search_result}}</h5>
+    {% for step in result %}
+
+   <tbody>
+    <tr>
+     <td>{{step}}</td>
+
+    </tr>
+  </tbody>
+ {% endfor %}
+
+
+
 
    {{form.submit()}}
  </form>
