@@ -50,9 +50,9 @@ def get_article_all():
     return cursor.fetchall()
 
 
-def create_index_es(): # формирование базы для эластика(индексация) задача2
-    for cont in execute_all():
-        es.index(index='my_index', id=cont[0], document={'text': (cont[1])})
+#def create_index_es(): # формирование базы для эластика(индексация) задача2
+#    for cont in execute_all():
+#        es.index(index='my_index', id=cont[0], document={'text': (cont[1])})
 
 
 
