@@ -1,12 +1,12 @@
 import sqlite3
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-
+import os
 from nris import bp_nris
 from elastic.el_search import bp_elastic
 from leads_id.leads import bp_leads
 
-path_to_base = '/media/i7_nfs/storage/develop/python/FlaskProject/app.sqlite'
+path_to_base = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
@@ -30,15 +30,6 @@ def get_article_all():
                             LEFT JOIN cms_articles a on a.article_id = ac.article_id
                             WHERE a.article_id""")
     return cursor.fetchall()
-
-#def create_index_es():
-#    for cont in execute_all():
-#        es.index(index='my_index', id=cont[0], document={'text': (cont[1])})
-
-
-def nris():
-
-    return 'ок'
 
 
 app.run(debug=True)

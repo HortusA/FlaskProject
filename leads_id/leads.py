@@ -6,9 +6,10 @@ from os import listdir, path
 import shutil
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
+UPLOAD_LEADS = '/home/alex/Документы/leads'
 
 
-path_to_leads = '/home/alex/Документы/leads'
+path_to_leads = os.path.join(os.path.abspath(os.path.dirname(__file__)), UPLOAD_LEADS)
 
 bp_leads = Blueprint('leads', __name__)
 
@@ -109,6 +110,4 @@ class CheckingLeads:
                             self.copy_file(dir_def)
 
 
-#a = CheckingLeads()
-#a.transferring_leads_files()
-#a.write_file(a.list_of_duplicate)
+

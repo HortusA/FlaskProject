@@ -99,6 +99,4 @@ def del_id_one(id_d):
     return resp
 
 
-def create_index_es():
-    for cont in execute_all():
-        es.index(index='my_index', id=cont[0], document={'text': (cont[1])})
+
