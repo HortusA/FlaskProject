@@ -7,8 +7,8 @@ from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 
 
-path_to_base = '/home/alex/Документы/amocrm/app.db'
-conn = sqlite3.connect(path_to_base) # подключени к базе для выборик адресов. Задача1 Задание2
+path_to_base = '/media/i7_nfs/storage/develop/python/FlaskProject/app.sqlite'
+conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
 
@@ -24,7 +24,7 @@ class UploadFileForm(FlaskForm):
     submit = SubmitField("Загрузка файла")
 
 
-@bp_nris.route('/upload', methods=['GET', "POST"]) # загрузка файла #Задача2
+@bp_nris.route('/upload', methods=['GET', "POST"])
 def home():
     form = UploadFileForm()
     if form.validate_on_submit():
