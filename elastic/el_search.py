@@ -41,7 +41,7 @@ def elastic():
     return render_template('elastic/elastic.html', form=form)
 
 
-@bp_elastic.route('/add_id', methods=['GET', "POST"]) #Задание1
+@bp_elastic.route('/add_id', methods=['GET', "POST"])
 def add_id():
     form = ElasticAddForm()
     if form.validate_on_submit():
