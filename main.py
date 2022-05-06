@@ -40,7 +40,7 @@ def get_article_all():
                             WHERE a.article_id""")
     return cursor.fetchall()
 
-#def create_index_es(): # формирование базы для эластика(индексация) задача2
+#def create_index_es():
 #    for cont in execute_all():
 #        es.index(index='my_index', id=cont[0], document={'text': (cont[1])})
 

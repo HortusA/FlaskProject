@@ -8,7 +8,7 @@ from flask_wtf import FlaskForm
 
 
 path_to_base = '/home/alex/Документы/amocrm/app.db'
-conn = sqlite3.connect(path_to_base) # подключени к базе для выборик адресов. Задача1 Задание2
+conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
 
@@ -24,7 +24,7 @@ class UploadFileForm(FlaskForm):
     submit = SubmitField("Загрузка файла")
 
 
-@bp_nris.route('/upload', methods=['GET', "POST"]) # загрузка файла #Задача2
+@bp_nris.route('/upload', methods=['GET', "POST"])
 def home():
     form = UploadFileForm()
     if form.validate_on_submit():
@@ -41,7 +41,7 @@ def home():
     return render_template('/nris/index.html', form=form)
 
 
-class EmailList:       # работа с файлом xls для задачи2
+class EmailList:
     def __init__(self, file_path):
         self.conn = sqlite3.connect(path_to_base)
         self.cursor = self.conn.cursor()
