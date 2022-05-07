@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
 
 
-path_to_base = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'app.db')
+path_to_base = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'database.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
