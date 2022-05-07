@@ -5,9 +5,10 @@ import os
 from nris import bp_nris
 from elastic.el_search import bp_elastic
 from leads_id.leads import bp_leads
+from pathlib import Path
 
 
-path_to_base = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'database.db')
+path_to_base = os.path.join(Path(__file__).parents[1], 'database.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 

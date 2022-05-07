@@ -6,7 +6,7 @@ from os import listdir, path
 import shutil
 from flask_wtf import FlaskForm
 from wtforms import SubmitField
-UPLOAD_LEADS = '/home/alex/Документы/leads'
+UPLOAD_LEADS = ''
 
 
 path_to_leads = os.path.join(os.path.abspath(os.path.dirname(__file__)), UPLOAD_LEADS)
