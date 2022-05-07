@@ -14,7 +14,7 @@ cursor = conn.cursor()
 
 list_body = []
 bp_nris = Blueprint('nris', __name__, template_folder='templates')
-UPLOAD_FOLDER = 'static/files'
+UPLOAD_FOLDER = ''
 
 
 class UploadFileForm(FlaskForm):
