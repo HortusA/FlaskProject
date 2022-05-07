@@ -5,9 +5,9 @@ from flask import render_template, Blueprint
 from wtforms import FileField, SubmitField, DateField, validators
 from werkzeug.utils import secure_filename
 from flask_wtf import FlaskForm
+from pathlib import Path
 
-
-path_to_base = os.path.join(os.path.abspath(os.path.dirname(__name__)), 'database.db')
+path_to_base = os.path.join(Path(__file__).parents[1], 'database.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
