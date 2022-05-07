@@ -7,7 +7,7 @@ from elastic.el_search import bp_elastic
 from leads_id.leads import bp_leads
 
 
-path_to_base = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'app.db')
+path_to_base = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'database.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
