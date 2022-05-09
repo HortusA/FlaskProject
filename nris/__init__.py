@@ -13,7 +13,7 @@ cursor = conn.cursor()
 
 
 list_body = []
-bp_nris = Blueprint('nris', __name__, template_folder='templates')
+bp_nris = Blueprint('pars', __name__, template_folder='templates')
 UPLOAD_FOLDER = ''
 
 

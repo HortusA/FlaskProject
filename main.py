@@ -6,6 +6,7 @@ from nris import bp_nris
 from elastic.el_search import bp_elastic
 from leads_id.leads import bp_leads
 from pathlib import Path
+from parser_art.pars_article import bp_pars
 
 
 path_to_base = os.path.join(Path(__file__).parents[1], 'database.db')
@@ -16,9 +17,11 @@ app = Flask(__name__)
 app.register_blueprint(bp_nris, url_prefix='/nris')
 app.register_blueprint(bp_elastic, url_prefix='/elastic')
 app.register_blueprint(bp_leads, url_prefix='/leads')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///count_url.db'
+app.register_blueprint(bp_pars, url_prefix='/parser_art')
 app.config['SECRET_KEY'] = 'secret'
 app.config['SESSION_COOKIE_SECURE'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pars_data.db'
+
 
 bootstrap = Bootstrap(app)
 
