@@ -16,10 +16,10 @@ app = Flask(__name__)
 app.register_blueprint(bp_nris, url_prefix='/nris')
 app.register_blueprint(bp_elastic, url_prefix='/elastic')
 app.register_blueprint(bp_leads, url_prefix='/leads')
-
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///count_url.db'
 app.config['SECRET_KEY'] = 'secret'
 app.config['SESSION_COOKIE_SECURE'] = False
+
 bootstrap = Bootstrap(app)
 
 

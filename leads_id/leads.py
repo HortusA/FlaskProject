@@ -8,12 +8,12 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 import argparse
 
+UPLOAD_LEADS = ''
+#path_folder = argparse.ArgumentParser(description='path folders leads')
+#path_folder.add_argument('folder')
+#args = path_folder.parse_args()
 
-path_folder = argparse.ArgumentParser(description='path folders leads')
-path_folder.add_argument('folder')
-args = path_folder.parse_args()
-
-UPLOAD_LEADS = args.folder
+#UPLOAD_LEADS = args.folder
 
 
 path_to_leads = os.path.join(os.path.abspath(os.path.dirname(__file__)), UPLOAD_LEADS)
