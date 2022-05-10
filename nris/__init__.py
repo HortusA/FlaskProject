@@ -37,8 +37,8 @@ def home():
         d = EmailList(file_path)
         res = d.list_pyxl(start_data, end_data)
 
-        return render_template('/nris/index.html', form=form, data=res)
-    return render_template('/nris/index.html', form=form)
+        return render_template('nris/index.html', form=form, data=res)
+    return render_template('nris/index.html', form=form)
 
 
 class EmailList:
