@@ -18,9 +18,9 @@ UPLOAD_FOLDER = ''
 
 
 class UploadFileForm(FlaskForm):
-    file = FileField("file")
-    start = DateField("start", format='%Y-%m-%d', validators=(validators.Optional(),))
-    end = DateField("end", format='%Y-%m-%d', validators=(validators.Optional(),))
+    file = FileField("file", validators=(validators.InputRequired(),))
+    start = DateField("start", format='%Y-%m-%d', validators=(validators.InputRequired(),))
+    end = DateField("end", format='%Y-%m-%d', validators=(validators.InputRequired(),))
     submit = SubmitField("Загрузка файла")
 
 
@@ -35,7 +35,7 @@ def home():
                                  secure_filename(file.filename))
         file.save(file_path)
         d = EmailList(file_path)
-        res = d.list_pyxl(start_data,end_data)
+        res = d.list_pyxl(start_data, end_data)
 
         return render_template('/nris/index.html', form=form, data=res)
     return render_template('/nris/index.html', form=form)
