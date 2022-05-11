@@ -25,14 +25,20 @@
         {{form.submit()}}
     </form>
 
- <h5>Всего проверено: {{count}} адресов. Совпадений:{{ c_mail }} </h5>
+
 <table class="table table-bordered">
+{% if not data %}
+    <h5>Результатов нет.</h5>
+{% else %}
+    <h5>{{count}}</h5>
+    <table class="table table-bordered">
   <thead>
     <tr>
       <th scope="col">Адрес почты</th>
       <th scope="col">Сумма</th>
     </tr>
   </thead>
+
 {% for mail in data %}
   <tbody>
     <tr>
@@ -42,6 +48,8 @@
   </tbody>
  {% endfor %}
 </table>
+{% endif %}
+
 
 
 </body>
