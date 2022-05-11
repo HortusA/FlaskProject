@@ -11,7 +11,6 @@ path_to_base = os.path.join(Path(__file__).parents[1], 'database.db')
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
-
 list_body = []
 bp_nris = Blueprint('pars', __name__, template_folder='templates')
 UPLOAD_FOLDER = ''
@@ -35,9 +34,11 @@ def home():
                                  secure_filename(file.filename))
         file.save(file_path)
         d = EmailList(file_path)
-        res = d.list_pyxl(start_data,end_data)
-
-        return render_template('/nris/index.html', form=form, data=res)
+        res = d.list_pyxl(start_data, end_data)
+        list_email = res[0]
+        count_email = res[1]
+        count_result = len(res[0])
+        return render_template('/nris/index.html', form=form, count=count_email, data=list_email,c_mail=count_result)
     return render_template('/nris/index.html', form=form)
 
 
@@ -60,7 +61,7 @@ class EmailList:
                     if '@' in data_email:
                         new_xls_email_list.append(data_email)
         print(self.data_end)
-
+        count = len(new_xls_email_list)
         sql = "','".join(new_xls_email_list)
         self.cursor.execute(f"""SELECT
                                     username, sum(amount) as sum
@@ -70,4 +71,5 @@ class EmailList:
                                     group by username
                                     """)
         res = self.cursor.fetchall()
-        return res
+
+        return res, count
