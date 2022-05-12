@@ -21,7 +21,17 @@ r = redis.Redis(host='localhost', port=6379, db=10)
 
 
 @app.route('/', methods=['POST', 'GET'])
-def redis_count():
+def redis_index():
+    return 'главная страница'
+
+
+@app.route('/contact', methods=['POST', 'GET'])
+def redis_contact():
+    return 'не очень главная страница'
+
+
+@app.before_request
+def before_request():
     ip_number = request.remote_addr
     agent = request.user_agent.string
     now = datetime.datetime.now()
@@ -33,10 +43,7 @@ def redis_count():
         db.session.add(u)
         db.session.flush()
         db.session.commit()
-        return f'посещение {url_name} в {now}'
-    else:
-        return f'C {ip_number} слишко м часты запрос '
 
 
-app.run
+app.run()
 
