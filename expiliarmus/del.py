@@ -4,11 +4,11 @@ import json
 
 class QrManager:
     def __init__(self):
-        self.url = "https://onlinepatent.ru/"
+        self.url = "https://api.qrcode-monkey.com/qr/custom"
 
     def get_data_post(self):
         payload = {
-            "data": "https://ya.ru",
+            "data": "https://onlinepatent.ru/",
             "config": {
                 "body": "circle",
             },
