@@ -4,7 +4,7 @@ import json
 
 class QrManager:
     def __init__(self):
-        self.url = "https://api.qrcode-monkey.com/qr/custom"
+        self.url = "https://onlinepatent.ru/"
 
     def get_data_post(self):
         payload = {
