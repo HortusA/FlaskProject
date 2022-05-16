@@ -1,17 +1,12 @@
-import re
 from bs4 import BeautifulSoup
+import re
 import pprint
-import urllib.parse
-import requests
 import sqlite3
-from bs4.element import Tag
+import json
 
-
-path_to_base = '/home/alex/Документы/amocrm/app.db'
+path_to_base = 'app.db'
 conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
-
-
 
 
 def get_article_all():
@@ -21,32 +16,31 @@ def get_article_all():
     return cursor.fetchall()
 
 
-
-
+article_body = {}
 for content in get_article_all():
-    article_body = {}
     date_article = content[0]
     clr = re.sub(r"[\\\r\\\n]", "", str(content))
     soup = BeautifulSoup(clr, 'lxml')
     root = soup.body
     root_root = [e.name for e in root if e.name is not None]
-    #print(root_root)
+    # print(root_root)
     root_childs = [e.name for e in root.children if e.name is not None]
-    #print(root_childs)
+    # print(root_childs)
     root_descendants = [e.name for e in root.descendants if e.name is not None]
-    #print(root_descendants)
+    print(root_descendants)
     list_root = []
     for i in root:
         if i.name is not None:
-            list_in=[]
+            list_in = []
             for teg in i.descendants:
                 if teg.name is not None:
                     if teg.name == 'strong':
 
-                        list_in.append({"type": "strong","data": {"text": str(i.text)
-                            }
-                        }
-                    )
+                        list_in.append(
+                            {
+                                "type": "strong",
+                                "data": {
+                                    "text": str(teg.text)}})
 
                     elif teg.name == "img" and teg.name is not None:
                         if 'src' in teg.attrs:
@@ -76,7 +70,7 @@ for content in get_article_all():
                         if 'href' in teg.attrs:
                             list_in.append(
                                 {
-                                    "type": "url transition",
+                                    "type": "url href",
                                     "data": {
                                         "file": {
 
@@ -112,17 +106,19 @@ for content in get_article_all():
                             }
                         })
 
-
             list_root.append({
-                   "data": {'Name teg':i.name,'тег': teg.text,
-                    "text": list_in,
-                }
+                "data": {'type teg': i.name, 'name': i.text,
+                         "data": list_in
+                         }
             })
 
-            article_body.update({'dtatdict': list_root})
-    #print(list_root)
+    article_body.update(
+        {
+            "time": date_article,
+            "blocks": list_root,
+            "version": "0.03"
+        }
+    )
 
-
-
-
+    #print(json.dumps(article_body))
     print(article_body)
