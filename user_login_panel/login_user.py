@@ -57,7 +57,8 @@ class RegFormUser(FlaskForm):
 
 @login.user_loader
 def load_user(_id):
-    return User.query.get(int(_id))
+    print(User.query.get(int(1)))
+    return User.query.get(_id)
 
 
 @app.route('/')
@@ -95,7 +96,8 @@ def register():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
-        #db.session.commit()
+        db.session.commit()
+        login_user(user)
         flash(u'Пользователь зарегестрирован!')
         return redirect('login')
     return render_template('register.html', form=form)
