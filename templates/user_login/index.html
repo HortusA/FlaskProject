@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body>
+<div>
+
+    Панель:
+    <a href="/index">Главная</a>
+    <a href="/register">Регистарция!</a></p>
+    {% if current_user.is_anonymous %}
+    <a href="{{'/login'}}">Login</a>
+    {% else %}
+    <a href="{{ '/logout' }}">Logout</a>
+    {% endif %}
+    <h1>Глвная</h1>
+</div>
+</body>
+</html>
