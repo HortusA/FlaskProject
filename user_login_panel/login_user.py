@@ -1,7 +1,7 @@
-from flask import Flask, render_template, flash
+from flask import Flask, render_template, flash, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user
+from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
@@ -52,7 +52,7 @@ class RegFormUser(FlaskForm):
     def valid_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
-            raise ValidationError('такое емайл есть')
+            raise ValidationError('такой емайл есть')
 
 
 @login.user_loader
@@ -62,6 +62,7 @@ def load_user(_id):
 
 @app.route('/')
 @app.route('/index')
+@login_required
 def index():
     return render_template('index.html')
 
@@ -75,30 +76,29 @@ def logout():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return render_template('index.html')
+        return redirect('index')
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash('Invalid username or password')
-            return render_template('login.html')
+            flash(u'неправельный логин или пароль')
+            return redirect('login')
         login_user(user, remember=form.remember_me.data)
-        return render_template('index.html')
+        return redirect('index')
     return render_template('login.html', form=form)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if current_user.is_authenticated:
-        return render_template('index.html')
     form = RegFormUser()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
         db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return render_template('login.html')
+        #db.session.commit()
+        flash(u'Пользователь зарегестрирован!')
+        return redirect('login')
     return render_template('register.html', form=form)
+
 
 app.run(debug=True)
