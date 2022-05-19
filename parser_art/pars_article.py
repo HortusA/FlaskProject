@@ -37,16 +37,16 @@ def pars_content():
         a = SearchArticles('app.db')
         result = a.get_article_content()
         test = a.parse_content(date=result[0], content=result[1])
-        for string_pars in test['blocks']:
-            u = ParsTable(pars_string=str(string_pars))
-            db.session.add(u)
-            db.session.flush()
-            db.session.commit()
+        #for string_pars in test['blocks']:
+            #u = ParsTable(pars_string=str(string_pars))
+            #db.session.add(u)
+            #db.session.flush()
+            #db.session.commit()
         #a.write_file("norm.html", a.protocol)
         #a.write_file('errors_url.html', a.url_error)
         a = test
         #print(json.dumps(test))
-        return render_template('pars_article/pars_article.html', form=form, result=a)
+        return render_template('pars_article/pars_article.html', form=form)
     return render_template('pars_article/pars_article.html', form=form)
 
 def upload_base(data):

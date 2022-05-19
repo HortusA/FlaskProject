@@ -1,9 +1,10 @@
 from flask import Flask
 import redis
 from flask import Flask
-from flask import request
+from flask import request, make_response
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+import requests
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///count_url.db'
@@ -17,33 +18,35 @@ class CountUrl(db.Model):
     date = db.Column(db.DateTime)
 
 
-r = redis.Redis(host='localhost', port=6379, db=10)
+r = redis.Redis(host='localhost', port=6379, db=0)
 
 
 @app.route('/', methods=['POST', 'GET'])
 def redis_index():
-    return 'главная страница'
+    pass
 
 
 @app.route('/contact', methods=['POST', 'GET'])
 def redis_contact():
-    return 'не очень главная страница'
+   pass
 
 
 @app.before_request
 def before_request():
-    ip_number = request.remote_addr
+    ip_check = request.remote_addr
     agent = request.user_agent.string
     now = datetime.datetime.now()
-    if r.exists(ip_number) == 0:
-        url_name = request.base_url
-        r.set(ip_number, 1)
-        r.expire(ip_number, 5)
+    url_name = request.base_url
+    cook = request.cookies.items()
+    if r.exists(ip_check) == 0:
+        r.set(ip_check, 1)
+        r.expire(ip_check, 3)
         u = CountUrl(url_name=url_name, date=now)
-        db.session.add(u)
-        db.session.flush()
-        db.session.commit()
-
-
+        print(r.get(ip_check))
+        #db.session.add(u)
+        #db.session.flush()
+        #db.session.commit()
+        return 'Статисктика увеличина'
+    return 'Слишком много запросов'
 app.run()
 

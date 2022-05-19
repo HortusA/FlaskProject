@@ -138,7 +138,7 @@ for content in get_article_all():
             {
                 "paragraf": "UL",
                 "time": check_children(i),
-                "blocks":"dsdsdsd",
+                "blocks": list_root,
                 "version": "0.01"
             }
             )

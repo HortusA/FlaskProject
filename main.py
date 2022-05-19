@@ -38,5 +38,7 @@ def get_article_all():
     return cursor.fetchall()
 
 
+
+
 app.debug = True
 app.run(host='0.0.0.0', port=6565)

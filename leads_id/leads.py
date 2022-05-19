@@ -8,7 +8,7 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField
 import argparse
 
-UPLOAD_LEADS = ''
+UPLOAD_LEADS = '/home/alex/Документы/leads'
 #path_folder = argparse.ArgumentParser(description='path folders leads')
 #path_folder.add_argument('folder')
 #args = path_folder.parse_args()
@@ -71,8 +71,8 @@ class CheckingLeads:
                     shutil.copytree(path_from_ware, path_ware)
                 self.list_of_duplicate.append(
                                 {
-                                    "Исходная директория": path_from_ware,
-                                    "Конечная директория": {
+                                    "Исходнфй файл": path_from_ware,
+                                    "Конечное расположение": {
                                         "Путь": path_from_ware,
                                         "файл": file,
                                         "Результат операции": "Копирование"
