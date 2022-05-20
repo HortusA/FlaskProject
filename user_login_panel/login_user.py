@@ -1,20 +1,14 @@
-from flask import Flask, render_template, flash, redirect, Blueprint
+from app import db
+from app import login
+from flask import render_template, flash, redirect, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, current_user, logout_user, login_required
+from flask_login import UserMixin, login_user, current_user, logout_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
-bp_admin = Blueprint('admin', __name__, template_folder='templates')
-
-
-app = Flask(__name__, template_folder='/home/alex/PycharmProjects/FlaskProject/templates/user_login/')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///user.db"
-db = SQLAlchemy(app)
-login = LoginManager(app)
-login.login_view = '/login'
+bp_admin = Blueprint('admin', __name__, template_folder='/home/alex/PycharmProjects/FlaskProject/templates/user_login/')
 
 
 class User(UserMixin, db.Model):
@@ -65,13 +59,13 @@ def load_user(_id):
 @bp_admin.route('/index')
 @login_required
 def index():
-    return render_template('user_login/index.html')
+    return render_template('root.html')
 
 
 @bp_admin.route('/logout')
 def logout():
     logout_user()
-    return render_template('user_login/index.html')
+    return render_template('index.html')
 
 
 @bp_admin.route('/login', methods=['GET', 'POST'])
@@ -86,10 +80,10 @@ def login():
             return redirect('login')
         login_user(user, remember=form.remember_me.data)
         return redirect('index')
-    return render_template('user_login/login.html', form=form)
+    return render_template('login.html', form=form)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@bp_admin.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegFormUser()
     if form.validate_on_submit():
@@ -103,4 +97,4 @@ def register():
     return render_template('user_login/register.html', form=form)
 
 
-app.run(debug=True)
+

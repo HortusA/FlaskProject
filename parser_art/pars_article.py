@@ -26,6 +26,8 @@ class ParsTable(db.Model):
     pars_string = db.Column(db.String)
 
 
+
+
 class ParserForm(FlaskForm):
     submit = SubmitField("Загрузка базы")
 
