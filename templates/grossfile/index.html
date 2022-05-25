@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{Title}}</title>
+
+   <link rel='stylesheet' type='text/css' href='/static/css/bootstrap.min.css'>
+</head>
+<body>
+ <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+<h1>чтение файла</h1>
+  <a href="/"> Админ.панель </a>
+ </nav>
+
+<table class="table table-bordered">
+{% if not data %}
+    <h5>Результатов нет.</h5>
+{% endif %}
+
+    <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Содержание</th>
+     </tr>
+  </thead>
+{% for st in data %}
+  <tbody>
+    <tr>
+     <td>{{st}}</td>
+     </tr>
+  </tbody>
+ {% endfor %}
+</table>
+{% if page !=1 %}
+<a class="btn btn-primary" href="/gross_file/upload?page={{ page - 1 }}" role="button">Назад</a>
+{% endif %}
+<a class="btn btn-primary" href="/gross_file/upload?page={{ page + 1 }}" role="button">Вперед</a>
+
+
+
+
+</body>
+</html>
