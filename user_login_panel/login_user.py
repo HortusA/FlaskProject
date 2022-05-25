@@ -8,7 +8,7 @@ from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Email, EqualTo, ValidationError
 
 
-bp_admin = Blueprint('admin', __name__, template_folder='/home/alex/PycharmProjects/FlaskProject/templates/user_login/')
+bp_admin = Blueprint('admin', __name__, template_folder='templates')
 
 
 class User(UserMixin, db.Model):
@@ -59,13 +59,13 @@ def load_user(_id):
 @bp_admin.route('/index')
 @login_required
 def index():
-    return render_template('root.html')
+    return render_template('user_login/index.html')
 
 
 @bp_admin.route('/logout')
 def logout():
     logout_user()
-    return render_template('index.html')
+    return render_template('user_login/index.html')
 
 
 @bp_admin.route('/login', methods=['GET', 'POST'])
@@ -80,7 +80,7 @@ def login():
             return redirect('login')
         login_user(user, remember=form.remember_me.data)
         return redirect('index')
-    return render_template('login.html', form=form)
+    return render_template('user_login/login.html', form=form)
 
 
 @bp_admin.route('/register', methods=['GET', 'POST'])
@@ -94,7 +94,7 @@ def register():
         login_user(user)
         flash(u'Пользователь зарегестрирован!')
         return redirect('login')
-    return render_template('user_login/register.html', form=form)
+    return render_template('register.html', form=form)
 
 
 
