@@ -12,10 +12,17 @@ cursor = conn.cursor()
 
 
 def get_article_all():
-    cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
-                            LEFT JOIN cms_articles a on a.article_id = ac.article_id
-                            WHERE a.article_id""")
-    return cursor.fetchall()
+   cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
+                           LEFT JOIN cms_articles a on a.article_id = ac.article_id
+                           WHERE a.article_id""")
+   return cursor.fetchall()
+
+
+#def get_article_all():
+ #   cursor.execute("""SELECT time , text FROM f_faq_com_items ac
+  #                          """)
+#    return cursor.fetchall()
+
 
 
 def get_content():
@@ -33,7 +40,7 @@ def get_content():
             if i.name is not None:
                 list_in = []
                 for teg in i.descendants:
-                    if teg.name is not None:
+                    if teg.name is not None :
                         if teg.name == 'strong':
 
                             list_in.append(
@@ -106,7 +113,15 @@ def get_content():
                                 }
                             })
 
-                list_root.append({
+                if i.name == "ul" or i.name == "strong":
+                    list_root.append({
+
+                    "data": {"data": list_in
+                             }
+                })
+
+                else:
+                    list_root.append({
                     "type": "paragraph",
                     "data": {'text': i.text,
                              "data": list_in
