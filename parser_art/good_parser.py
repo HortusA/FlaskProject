@@ -11,17 +11,22 @@ conn = sqlite3.connect(path_to_base)
 cursor = conn.cursor()
 
 
-def get_article_all():
-   cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
-                           LEFT JOIN cms_articles a on a.article_id = ac.article_id
-                           WHERE a.article_id""")
-   return cursor.fetchall()
+#def get_article_all():
+#   cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
+#                           LEFT JOIN cms_articles a on a.article_id = ac.article_id
+#                           WHERE a.article_id""")
+#   return cursor.fetchall()
 
 
 #def get_article_all():
  #   cursor.execute("""SELECT time , text FROM f_faq_com_items ac
   #                          """)
 #    return cursor.fetchall()
+
+def get_article_all():
+    cursor.execute("""SELECT time , text FROM f_blog_posts ac
+                          """)
+    return cursor.fetchall()
 
 
 

@@ -1,10 +1,7 @@
 import re
 from bs4 import BeautifulSoup
 import pprint
-import urllib.parse
-import requests
 import sqlite3
-from bs4.element import Tag
 
 
 path_to_base = '/home/alex/Документы/amocrm/app.db'
@@ -24,7 +21,6 @@ def get_article_all():
 def check_children(teg):
     list_chlildren = []
     for j in teg.children:
-
 
         if j.name == "a" and j.name is not None:
             if 'href' in j.attrs:
@@ -72,7 +68,6 @@ def check_children(teg):
                     }
                 )
 
-
         elif j.name == "ul" and j.name is not None:
             list_chlildren.append({
                 "type": "list ul",
@@ -80,7 +75,6 @@ def check_children(teg):
                     "text": str(teg.text),
                 }
             })
-
 
         elif j.name == "li" and j.name is not None:
             list_chlildren.append({
@@ -90,7 +84,6 @@ def check_children(teg):
                 }
             })
 
-
         elif j.name == "br" and j.name is not None:
             list_chlildren.append({
                 "type": "br",
@@ -99,8 +92,8 @@ def check_children(teg):
                 }
             })
 
-
     return list_chlildren
+
 
 for content in get_article_all():
     date_article = content[0]
@@ -122,7 +115,6 @@ for content in get_article_all():
                     "version": "0.01"
                 }
             )
-
 
         elif i.name == "figure" and i.name is not None:
             list_root.append(
@@ -148,7 +140,7 @@ for content in get_article_all():
         "version": "0.01"
     })
 
-    pprint.pprint(dict_root)
+print(dict_root)
 
 
     #print(dict_root)
