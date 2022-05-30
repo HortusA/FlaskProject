@@ -12,21 +12,21 @@ cursor = conn.cursor()
 
 
 #def get_article_all():
-#   cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
+#    cursor.execute("""SELECT a.date, ac.content FROM cms_article_content ac
 #                           LEFT JOIN cms_articles a on a.article_id = ac.article_id
 #                           WHERE a.article_id""")
-#   return cursor.fetchall()
-
-
-#def get_article_all():
- #   cursor.execute("""SELECT time , text FROM f_faq_com_items ac
-  #                          """)
 #    return cursor.fetchall()
 
+
 def get_article_all():
-    cursor.execute("""SELECT time , text FROM f_blog_posts ac
+    cursor.execute("""SELECT time , text FROM f_faq_com_items ac
                           """)
     return cursor.fetchall()
+
+#def get_article_all():
+#    cursor.execute("""SELECT time , text FROM f_blog_posts ac
+#                          """)
+#    return cursor.fetchall()
 
 
 
@@ -140,10 +140,11 @@ def get_content():
                 "version": "0.03"
             }
         )
+        #print(article_body)
+        with open('data.txt', 'a') as outfile:
+            json.dump(article_body, outfile)
 
-        print(article_body)
     return json.dumps(article_body)
 
 
 a = get_content()
-print(a)
